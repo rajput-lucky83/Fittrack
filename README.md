@@ -30,22 +30,35 @@ src/main/resources/db.properties   DB url / user / password
 src/main/webapp/WEB-INF/views/     JSP pages (user/, admin/, common/)
 ```
 
-## Run it
-1. Install JDK 11+, Maven, MySQL 8.
-2. Create the database: `mysql -u root -p < sql/schema.sql`
-3. Edit `src/main/resources/db.properties` with your MySQL username/password.
-4. Start: `mvn clean package cargo:run`
-5. Open http://localhost:8080/fittrack
+## Run the project
 
-Default admin (created automatically on first start): `admin@fittrack.com` / `admin123`
-Register a normal user from the Register page.
+## Prerequisites:
 
-## Push to GitHub
-```
-git init
-git add .
-git commit -m "Initial commit: FitTrack fitness tracking app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/fittrack.git
-git push -u origin main
-```
+- JDK 11 or later
+- Apache Maven
+- MySQL 8
+- Apache Tomcat 9
+
+## Setup
+
+1. Clone the repository:
+   
+   git clone https://github.com/rajput-lucky83/Fittrack.git
+cd Fittrack
+
+2. Create the database:
+   
+   mysql -u root -p < sql/schema.sql
+
+3. Configure your local MySQL credentials in "src/main/resources/db.properties". Never commit this file or share your database password.
+
+4. Build the project:
+   
+   mvn clean package
+
+5. Copy "target/fittrack.war" into the Apache Tomcat 9 "webapps" directory.
+
+6. Start Tomcat and open:
+   "http://localhost:8080/fittrack"
+
+Note: MySQL must be running, and the database credentials must be configured correctly.
