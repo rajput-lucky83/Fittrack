@@ -1,0 +1,7 @@
+<c:if test="${not bare}">
+    </main>
+</div>
+</c:if>
+<script src="${pageContext.request.contextPath}/assets/js/app.js"></script>
+</body>
+</html>

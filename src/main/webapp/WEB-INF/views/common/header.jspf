@@ -1,0 +1,61 @@
+<%-- Shared page header. Pages set pageTitle, nav (which menu item is active) and optionally bare=true --%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><c:out value="${pageTitle}"/> | <c:out value="${applicationScope.siteName}"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+</head>
+<body class="${bare ? 'auth-body' : ''}">
+<c:if test="${not bare}">
+<div class="shell">
+    <aside class="sidebar">
+        <a class="brand" href="${pageContext.request.contextPath}${sessionScope.user.homePath}">Fit<span>Track</span></a>
+
+        <nav class="nav">
+            <c:choose>
+                <c:when test="${sessionScope.user.admin}">
+                    <div class="nav-label">Administration</div>
+                    <a href="${pageContext.request.contextPath}/admin/dashboard" class="${nav == 'dashboard' ? 'active' : ''}">Overview</a>
+                    <a href="${pageContext.request.contextPath}/admin/users" class="${nav == 'users' ? 'active' : ''}">Users</a>
+                    <a href="${pageContext.request.contextPath}/admin/content" class="${nav == 'content' ? 'active' : ''}">Fitness content</a>
+                    <a href="${pageContext.request.contextPath}/admin/challenges" class="${nav == 'challenges' ? 'active' : ''}">Challenges</a>
+                    <a href="${pageContext.request.contextPath}/admin/settings" class="${nav == 'settings' ? 'active' : ''}">System settings</a>
+                </c:when>
+                <c:otherwise>
+                    <div class="nav-label">My training</div>
+                    <a href="${pageContext.request.contextPath}/user/dashboard" class="${nav == 'dashboard' ? 'active' : ''}">Dashboard</a>
+                    <a href="${pageContext.request.contextPath}/user/workouts" class="${nav == 'workouts' ? 'active' : ''}">Workout log</a>
+                    <a href="${pageContext.request.contextPath}/user/progress" class="${nav == 'progress' ? 'active' : ''}">Progress</a>
+                    <div class="nav-label">Community</div>
+                    <a href="${pageContext.request.contextPath}/user/challenges" class="${nav == 'challenges' ? 'active' : ''}">Challenges</a>
+                    <a href="${pageContext.request.contextPath}/user/history" class="${nav == 'history' ? 'active' : ''}">Challenge history</a>
+                    <a href="${pageContext.request.contextPath}/user/content" class="${nav == 'content' ? 'active' : ''}">Guidance library</a>
+                    <div class="nav-label">Account</div>
+                    <a href="${pageContext.request.contextPath}/user/profile" class="${nav == 'profile' ? 'active' : ''}">My profile</a>
+                </c:otherwise>
+            </c:choose>
+        </nav>
+
+        <div class="sidebar-user">
+            <strong><c:out value="${sessionScope.user.name}"/></strong>
+            <span class="muted"><c:out value="${sessionScope.user.role}"/></span><br>
+            <a href="${pageContext.request.contextPath}/logout">Sign out</a>
+        </div>
+    </aside>
+
+    <main class="content">
+        <div class="page-head">
+            <div>
+                <h1><c:out value="${pageTitle}"/></h1>
+                <c:if test="${not empty pageSub}"><p><c:out value="${pageSub}"/></p></c:if>
+            </div>
+        </div>
+</c:if>
+
+<c:if test="${not empty sessionScope.flashMsg}">
+    <div class="flash ${sessionScope.flashType}"><c:out value="${sessionScope.flashMsg}"/></div>
+    <c:remove var="flashMsg" scope="session"/>
+    <c:remove var="flashType" scope="session"/>
+</c:if>
